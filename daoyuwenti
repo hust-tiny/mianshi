@@ -1,0 +1,31 @@
+class Solution:
+    def numIslands(self, grid) -> int:
+        hang_num = len(grid)
+        lie_num = len(grid[0])
+        island_piece_grid_list = []
+        count = 0
+        for hang in range(hang_num):
+            for lie in range(lie_num):
+                if grid[hang][lie] == '1':
+                    grid[hang][lie] = '0'
+                    self.count_grid(self, grid, island_piece_grid_list, hang, lie, hang_num, lie_num)
+                    count += 1
+        print(count)
+
+    def count_grid(self, grid, island_piece_grid_list, hang, lie, hang_num, lie_num):
+        if hang+1 < hang_num:
+            if grid[hang+1][lie] == '1':
+                grid[hang + 1][lie] = '0'
+                self.count_grid(self, grid, island_piece_grid_list, hang+1, lie, hang_num, lie_num)
+        if hang-1 >= 0:
+            if grid[hang-1][lie] == '1':
+                grid[hang - 1][lie] = '0'
+                self.count_grid(self, grid, island_piece_grid_list, hang-1, lie, hang_num, lie_num)
+        if lie+1 < lie_num:
+            if grid[hang][lie+1] == '1':
+                grid[hang][lie+1] = '0'
+                self.count_grid(self, grid, island_piece_grid_list, hang, lie+1, hang_num, lie_num)
+        if lie-1 >= 0:
+            if grid[hang][lie-1] == '1':
+                grid[hang][lie-1] = '0'
+                self.count_grid(self, grid, island_piece_grid_list, hang, lie-1, hang_num, lie_num)
